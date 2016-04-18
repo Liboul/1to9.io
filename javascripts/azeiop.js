@@ -1,3 +1,4 @@
+var gameStart;
 var position = 1;
 var specialBubble;
 var bubblesInterval;
@@ -88,12 +89,15 @@ function stopLaunchingBubbles(){
 }
 
 function triggerCollision(){
+  var secondsAlive = (new Date()).getTime() - gameStart;
+  $('#game-over-text')[0].innerText = "GAME OVER... Score: " + secondsAlive;
   stopListeningToCollisions();
   stopLaunchingBubbles();
   $('#game-over').removeClass('hidden');
 }
 
 function resetGame(){
+  gameStart = (new Date()).getTime();
   killAllBubbles();
   $('#game-over').addClass('hidden');
   launchBubbles();
@@ -128,7 +132,7 @@ $(document).ready(function(){
     resetGame();
   });
 
-  launchBubbles();
+  resetGame();
 
   //specialBubble = new Bubble();
   //specialBubble.launch();
